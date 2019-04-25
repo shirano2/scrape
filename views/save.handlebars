@@ -1,1 +1,42 @@
-<div>test</div>
+<div id="wrapper">
+  <div id="articles">
+  {{#if dbArticle}}
+  여기1
+    {{#each dbArticle}}
+    <h2>{{headline}}</h2> 
+    <p>{{summary}}</p>
+    <button class="note" data-id="{{id}}" data-title="{{note.title}}" data-body="{{note.body}}">add Note</button>
+    <button class="delete" data-id="{{id}}">Delete article</button>
+    {{/each}}
+  {{/if}}
+   {{#unless dbArticle}}
+   저장된 아티클이 없습니다.
+   {{/unless}}
+  </div>
+
+   <form method="POST" action="/note" style="display:none">
+      <input id="hidden" type="hidden" name="id">
+      title:<input type="text" id="note" name="title">
+      body:<br><textarea type="text" id="body" name="body"></textarea> 
+      <input type="submit" id="submit">
+  </form>
+</div>
+
+<script>
+$(function(){
+    $(".note").on("click", function(){
+        var thisId = $(this).data("id");
+        var noteTitle= $(this).data("title");
+        var noteBody= $(this).data("body");
+        $("#hidden").val(thisId);
+        $("#note").val(noteTitle);
+        $("#body").val(noteBody);
+        $("form").show();
+    });
+})
+    
+
+
+
+
+</script>

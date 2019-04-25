@@ -107,7 +107,37 @@ app.put("/saved/:id", function(req,res){
   });
 });
 
+app.get("/saved", function(req,res){
+  //console.log(req.body);
+  db.Article.find({saved:"true"})
+  .populate("note")
+  .then(function(dbArticle) {
+      res.render("save", {dbArticle:dbArticle});
+    })
+  .catch(function(err) {
+      res.json(err);
+  });
+});
 
+app.post("/note",function(req,res){
+  console.log(req.body);
+  var note={
+    title:req.body.title,
+    body:req.body.body
+  }
+  db.Note.create(note)
+  .then(function(dbNote) {
+		return db.Article.findOneAndUpdate({_id:req.body.id}, { note: dbNote._id }, { new: true }); 
+	})
+  .then(function(dbLibrary) {
+    res.redirect("/saved");
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+
+
+})
 
 /* listener */
 app.listen(PORT, function() {
