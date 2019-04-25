@@ -97,15 +97,14 @@ app.get("/clear", function(req, res) {
 });
 
 app.put("/saved/:id", function(req,res){
- 
+  //console.log(req.body);
   db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
-  .then(function(dbLibrary) {
+  .then(function() {
       res.redirect("/");
     })
-    .catch(function(err) {
+  .catch(function(err) {
       res.json(err);
-    });
-
+  });
 });
 
 

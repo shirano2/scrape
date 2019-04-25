@@ -4,7 +4,7 @@
   여기1
     {{#each dbArticle}}
     <h2>{{headline}}</h2> 
-    <p>{{summary}}</p><button id="saved" data-id="{{id}} "data-headline="{{headline}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">Save article</button>
+    <p>{{summary}}</p><button data-id="{{id}} "data-headline="{{headline}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">Save article</button>
     {{/each}}
   {{/if}}
    {{#unless dbArticle}}
@@ -38,31 +38,31 @@
   </div> --}}
 
   <!-- order a new burger -->
-  <form>
+  {{!-- <form>
       <textarea type="text" name="burger"></textarea> 
       <input type="submit" id="submit" value="Order">
       <h4>Enter a burger you want to eat Click the "Submit" button</h4>
-  </form>
+  </form> --}}
 </div>
 
 <script>
 $(function() {
 
-    $("#submit").on("click", function(){
+    $("button").on("click", function(){
         var thisId = $(this).data("id");
         var saved = $(this).data("saved");
-        if (saved===true) {
-            $(this).attr("data-saved",false);
-            saved=false;
+        if (saved==="true") {
+            $(this).attr("data-saved","false");
+            saved="false";
         } else {
-            $(this).attr("data-saved",true);
-            saved=true;
+            $(this).attr("data-saved","true");
+            saved="true";
         }
         $.ajax({
             method: "PUT",
             url: "/saved/" + thisId,
-            data: saved
-        })
+            data: {saved:saved}
+        });
     });
 
 
