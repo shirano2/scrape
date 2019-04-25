@@ -96,6 +96,17 @@ app.get("/clear", function(req, res) {
   });
 });
 
+app.put("/saved/:id", function(req,res){
+ 
+  db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
+  .then(function(dbLibrary) {
+      res.redirect("/");
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+
+});
 
 
 
