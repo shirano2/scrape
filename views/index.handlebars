@@ -4,7 +4,7 @@
   여기1
     {{#each dbArticle}}
     <h2>{{headline}}</h2> 
-    <p>{{summary}}</p><button data-id="{{id}} "data-headline="{{headline}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">Save article</button>
+    <p>{{summary}}</p><button class="saved" data-id="{{id}} "data-headline="{{headline}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">Save article</button>
     {{/each}}
   {{/if}}
    {{#unless dbArticle}}
@@ -47,8 +47,7 @@
 
 <script>
 $(function() {
-
-    $("button").on("click", function(){
+    $(".saved").on("click", function(){
         var thisId = $(this).data("id");
         var saved = $(this).data("saved");
         if (saved==="true") {
@@ -62,9 +61,9 @@ $(function() {
             method: "PUT",
             url: "/saved/" + thisId,
             data: {saved:saved}
+        }).then(function(dbArticle) {
+            //location.assign("/");
         });
     });
-
-
 });
 </script>

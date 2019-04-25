@@ -86,24 +86,14 @@ app.get("/scrap", function(req, res) {
   });
 });
 
-app.get("/clear", function(req, res) {
-  db.Article.deleteMany({}).then(function() {
+app.delete("/clear", function(req, res) {
+  db.Article.deleteMany().then(function(dbArticle) {
     //console.log(dbArticle);
-    res.redirect("/");
+    //res.redirect("/");
+    res.json(dbArticle);
   })
   .catch(function(err) {
     throw err;
-  });
-});
-
-app.put("/saved/:id", function(req,res){
-  //console.log(req.body);
-  db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
-  .then(function() {
-      res.redirect("/");
-    })
-  .catch(function(err) {
-      res.json(err);
   });
 });
 
@@ -119,17 +109,29 @@ app.get("/saved", function(req,res){
   });
 });
 
+app.put("/saved/:id", function(req,res){
+  //console.log(req.body);
+  db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
+  .then(function(dbArticle) {
+      //res.redirect("/");
+      res.json(dbArticle);
+    })
+  .catch(function(err) {
+      res.json(err);
+  });
+});
+
 app.post("/note",function(req,res){
-  console.log(req.body);
+  //console.log(req.body);
   var note={
     title:req.body.title,
     body:req.body.body
   }
   db.Note.create(note)
   .then(function(dbNote) {
-		return db.Article.findOneAndUpdate({_id:req.body.id}, { note: dbNote._id }, { new: true }); 
+		db.Article.findOneAndUpdate({_id:req.body.id}, { note: dbNote._id }, { new: true }); 
 	})
-  .then(function(dbLibrary) {
+  .then(function() {
     res.redirect("/saved");
   })
   .catch(function(err) {
@@ -139,15 +141,13 @@ app.post("/note",function(req,res){
 
 app.put("/deleted/:id", function(req,res){
   db.Article.findOneAndUpdate({_id:req.params.id}, { saved:"false"}, { new: true })
-  .then(function() {
-      res.redirect("/saved");
-    })
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+  })
   .catch(function(err) {
       res.json(err);
   });
 });
-
-
 
 /* listener */
 app.listen(PORT, function() {

@@ -39,6 +39,8 @@ $(function(){
         $.ajax({
             method: "PUT",
             url: "/deleted/" + thisId
+        }).then(function(dbArticle){
+            location.assign("/saved");
         });
     })
 })
