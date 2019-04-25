@@ -29,7 +29,7 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://localhost/scrapeDB", { useNewUrlParser: true });
 
 app.get("/", function(req, res) {
-  db.Article.find({}).then(function(dbArticle) {
+  db.Article.find({"saved":"false"}).then(function(dbArticle) {
     //console.log(dbArticle);
       res.render("index", {dbArticle:dbArticle});
     })
@@ -38,58 +38,51 @@ app.get("/", function(req, res) {
     });
 });
 
-// app.get("/scrape", function(req, res) {
-//   axios.get("http://www.echojs.com/").then(function(response) {
-//     var $ = cheerio.load(response.data);
-
-//     $("article h2").each(function(i, element) {
-//       var result = {};
-
-//       result.title = $(this).children("a").text();
-//       result.link = $(this).children("a").attr("href");
-
-//       db.Article.create(result)
-//         .then(function(dbArticle) {
-//           console.log(dbArticle);
-//         })
-//         .catch(function(err) {
-//           console.log(err);
-//         });
-//     });
-//     res.send("Scrape Complete");
-//   });
-// });
-app.get("/scrap", function(req, res) {
+app.get("/scrape", function(req, res) {
   axios.get("https://www.bbc.com/news/").then(function(response) {
     var $ = cheerio.load(response.data);
     $(".gs-c-promo").each(function(i,element) {
       var result = {};
       result.headline=$(element).find("h3").text();
       result.summary=$(element).find("p.gs-c-promo-summary").text();
+      // if($(element).find(".gs-o-responsive-image img").attr("src").indexOf("http")>=0) {
+      //   result.img=$(element).find(".gs-o-responsive-image img").attr("src");
+      // } else {
+      //   result.img="";
+      // }
+      // console.log(result.img);
+      //console.log($(element).children(".gs-c-promo-image").find("img").attr("src"));
+      //  if($(element).children("div.gs-c-promo-image").find("img").attr("src").indexOf("http")>=0) {
+      //   result.img=$(element).children(".gs-c-promo-image").find("img").attr("src");
+      // } else {
+      //   result.img="";
+      // }
+   if ($(element).children(".gs-c-promo-image").find("img").data("src")!==undefined) {
+        result.imageUrl=$(element).children(".gs-c-promo-image").find("img").data("src").replace("{width}","320");
+      } else {
+        result.imageUrl="";
+      }
+      // console.log($(element).children(".gs-c-promo-image").find("img").attr("src").indexOf("http")>=0);
+      // console.log(result.imageUrl);
       if($(element).find("a").attr("href").indexOf("http")<0) {
         result.url="https://www.bbc.com/news"+$(element).find("a").attr("href");
       } else {
         result.url=$(element).find("a").attr("href");
       }
-      if(result.summary!=="") {
+      if(result.imageUrl!=="" && result.summary!=="") {
         db.Article.create(result).then(function(dbArticle) {
-          //console.log(dbArticle);
         })
         .catch(function(err) {
-          throw err;
+          console.log(err);
         });
       }
-      //console.log($(element).find("h3").text());
-      //console.log(result);
     });
     res.redirect("/");
   });
 });
 
 app.delete("/clear", function(req, res) {
-  db.Article.deleteMany().then(function(dbArticle) {
-    //console.log(dbArticle);
-    //res.redirect("/");
+  db.Article.deleteMany({"saved":"false"}).then(function(dbArticle) {
     res.json(dbArticle);
   })
   .catch(function(err) {
@@ -98,7 +91,6 @@ app.delete("/clear", function(req, res) {
 });
 
 app.get("/saved", function(req,res){
-  //console.log(req.body);
   db.Article.find({saved:"true"})
   .populate("note")
   .then(function(dbArticle) {
@@ -110,10 +102,8 @@ app.get("/saved", function(req,res){
 });
 
 app.put("/saved/:id", function(req,res){
-  //console.log(req.body);
   db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
   .then(function(dbArticle) {
-      //res.redirect("/");
       res.json(dbArticle);
     })
   .catch(function(err) {
@@ -122,7 +112,6 @@ app.put("/saved/:id", function(req,res){
 });
 
 app.post("/note",function(req,res){
-  //console.log(req.body);
   var note={
     title:req.body.title,
     body:req.body.body

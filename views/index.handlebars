@@ -3,46 +3,15 @@
   {{#if dbArticle}}
   여기1
     {{#each dbArticle}}
+    <img src="{{imageUrl}}">
     <h2>{{headline}}</h2> 
-    <p>{{summary}}</p><button class="saved" data-id="{{id}} "data-headline="{{headline}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">Save article</button>
+    <p>{{summary}}</p><button class="saved" data-id="{{id}} "data-headline="{{headline}}" data-img="{{img}}" data-summary="{{summary}}" data-url="{{url}}" data-note="{{note}}" data-saved="{{saved}}">SAVE ARTICLE</button>
     {{/each}}
   {{/if}}
    {{#unless dbArticle}}
    여기2
    {{/unless}}
   </div>
-  {{!-- <img src="/assets/img/burger.png" alt="burger.png">
-  <h1>Eat-Da-Burger!</h1>
-  <!-- show the whole burgers -->
-  <div id="toEat">
-      <h2>Table</h2>
-      <ul>
-      {{#each burgers}}
-          {{#unless devoured}}
-          <li><input type="text" value="{{burger_name}}" readonly>
-          <input type="text" id="customer" placeholder="Customer?">
-          <button data-id="{{id}}">Devour it!</button></li>
-          {{/unless}}
-      {{/each}}
-      </ul>
-  </div>
-  <div id="alreadyEaten">
-      <h2>Trash Bin</h2>
-      <ul>
-      {{#each burgers}}
-          {{#if devoured}}
-          <li><input type="text" value="{{burger_name}} (Eaten by {{Customer.customer_name}})" class="devoured" readonly></li> 
-          {{/if}}
-      {{/each}}
-      </ul>
-  </div> --}}
-
-  <!-- order a new burger -->
-  {{!-- <form>
-      <textarea type="text" name="burger"></textarea> 
-      <input type="submit" id="submit" value="Order">
-      <h4>Enter a burger you want to eat Click the "Submit" button</h4>
-  </form> --}}
 </div>
 
 <script>
@@ -62,7 +31,7 @@ $(function() {
             url: "/saved/" + thisId,
             data: {saved:saved}
         }).then(function(dbArticle) {
-            //location.assign("/");
+            location.assign("/");
         });
     });
 });

@@ -10,9 +10,12 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  imageUrl : {
+    type:String,
+    required:true
+  },
   url: {
-    type: String,
-    required: true
+    type: String
   },
   saved: {
     type: String,
@@ -24,8 +27,6 @@ var ArticleSchema = new Schema({
   }
 });
 
-// This creates our model from the above schema, using mongoose's model method
 var Article = mongoose.model("Article", ArticleSchema);
 
-// Export the Article model
 module.exports = Article;

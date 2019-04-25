@@ -3,10 +3,11 @@
   {{#if dbArticle}}
   여기1
     {{#each dbArticle}}
+    <img src="{{imageUrl}}">
     <h2>{{headline}}</h2> 
     <p>{{summary}}</p>
-    <button class="note" data-id="{{id}}" data-title="{{note.title}}" data-body="{{note.body}}">add Note</button>
-    <button class="delete" data-id="{{id}}">Delete article</button>
+    <button class="delete" data-id="{{id}}">DELETE FROM SAVED</button>
+    <button class="note" data-id="{{id}}" data-title="{{note.title}}" data-body="{{note.body}}">ARTICLE NOTES</button>
     {{/each}}
   {{/if}}
    {{#unless dbArticle}}
