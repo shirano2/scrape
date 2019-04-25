@@ -33,6 +33,14 @@ $(function(){
         $("#body").val(noteBody);
         $("form").show();
     });
+
+    $(".delete").on("click",function(){
+        var thisId = $(this).data("id");
+        $.ajax({
+            method: "PUT",
+            url: "/deleted/" + thisId
+        });
+    })
 })
     
 

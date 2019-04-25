@@ -135,9 +135,19 @@ app.post("/note",function(req,res){
   .catch(function(err) {
     res.json(err);
   });
+});
+
+app.put("/deleted/:id", function(req,res){
+  db.Article.findOneAndUpdate({_id:req.params.id}, { saved:"false"}, { new: true })
+  .then(function() {
+      res.redirect("/saved");
+    })
+  .catch(function(err) {
+      res.json(err);
+  });
+});
 
 
-})
 
 /* listener */
 app.listen(PORT, function() {
