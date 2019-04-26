@@ -1,5 +1,4 @@
 $(function(){
-
     $(document).on("click","#scrape",function(){
         $("h4").text("Please wait to load ....")
         $.ajax({
@@ -71,5 +70,5 @@ $(function(){
         }).then(function(dbArticle){
             location.assign("/saved");
         });
-    })
+    });
 });
