@@ -19,16 +19,45 @@
         There are no articles saved.
     {{/unless}}
   </div>
-   <form method="POST" action="/note" style="display:none">
-      <input id="hidden" type="hidden" name="id">
-      title:<input type="text" id="note" name="title">
-      body:<br><textarea type="text" id="body" name="body"></textarea> 
-      <input type="submit" id="submit">
-  </form>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">title:<input type="text" id="note" name="title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <textarea type="text" style="width:100%" id="body" name="body"></textarea> 
+        </div>
+        <input id="hidden" type="hidden" name="id">
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="submit" class="btn btn-primary">Save changes</button>
+        </div>
+        </div>
+    </div>
 </div>
 
 <script>
 $(function(){
+    $("#submit").on("click", function(){
+        $.ajax({
+            method: "POST",
+            url: "/note",
+            data: {
+                id:$("#hidden").val(),
+                title:$("#note").val(),
+                body:$("#body").val()
+            }
+        }).then(function(dbArticle) {
+            location.assign("/saved");
+        });
+    });
+
     $(".notes").on("click", function(){
         var thisId = $(this).data("id");
         var noteTitle= $(this).data("title");
@@ -36,7 +65,8 @@ $(function(){
         $("#hidden").val(thisId);
         $("#note").val(noteTitle);
         $("#body").val(noteBody);
-        $("form").show();
+        //$("form").show();
+        $("#exampleModal").modal("show");
     });
 
     $(".delete").on("click",function(){

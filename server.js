@@ -104,8 +104,8 @@ app.post("/note",function(req,res){
   db.Note.create(note)
   .then(function(dbNote) {
     db.Article.findOneAndUpdate({_id:req.body.id}, { notes: dbNote._id}, { new: true })
-    .then(function() {
-      res.redirect("/saved"); 
+    .then(function(dbArticle) {
+      res.json(dbArticle);
     })
     .catch(function(err) {
       res.json(err);
