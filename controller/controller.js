@@ -9,7 +9,7 @@ router.get("/", function(req, res) {
         res.render("index", {dbArticle:dbArticle});
       })
       .catch(function(err) {
-        throw err;
+        res.json(err);
       });
   });
   

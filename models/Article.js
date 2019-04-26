@@ -20,7 +20,8 @@ var ArticleSchema = new Schema({
   url: {
     type: String,
     trim:true,
-    required:true
+    required:true,
+    unique:true
   },
   saved: {
     type: String,

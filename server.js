@@ -19,7 +19,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scrapeDataBase", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/finalscrapeDB";
+//scrapeData
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 var controller = require("./controller/Controller.js");
 app.use(controller);
