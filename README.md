@@ -9,4 +9,4 @@ If you want to get recent articles, then click the "CLEAR ARTICLES" button and c
 
 This is made by **Minseok Choi (https://github.com/shirano2)**.
 
-The site is https://sequelizedburger-17636.herokuapp.com/
+The site is https://scrap-22948.herokuapp.com/
