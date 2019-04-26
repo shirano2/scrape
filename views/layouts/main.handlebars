@@ -7,29 +7,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <script src="/assets/js/action.js"></script>
 </head>
 <body>
     {{{ body }}}
 </body>
-<script>
-$(function(){
-    $(document).on("click","#scrape",function(){
-        $.ajax({
-            method: "GET",
-            url: "/scrape"
-        }).then(function(){
-            location.assign("/");
-        })
-    });
-
-    $(document).on("click","#clear",function(){
-        $.ajax({
-            method: "DELETE",
-            url: "/clear"
-        }).then(function(dbArticle){
-            location.assign("/");
-        });
-    })
-})
-</script>
 </html>

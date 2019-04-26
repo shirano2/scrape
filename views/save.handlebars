@@ -16,7 +16,7 @@
         {{/each}}
     {{/if}}
     {{#unless dbArticle}}
-        There are no articles saved.
+        <h4>There are no articles saved.</h4>
     {{/unless}}
   </div>
 </div>
@@ -25,13 +25,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">title:<input type="text" id="note" name="title"></h5>
+            <h5 class="modal-title" id="exampleModalLabel">title: <input type="text" id="note" name="title" placeholder="title"></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <textarea type="text" style="width:100%" id="body" name="body"></textarea> 
+            <textarea type="text" style="width:100%" id="body" name="body" placeholder="text"></textarea> 
         </div>
         <input id="hidden" type="hidden" name="id">
         <div class="modal-footer">
@@ -41,42 +41,3 @@
         </div>
     </div>
 </div>
-
-<script>
-$(function(){
-    $("#submit").on("click", function(){
-        $.ajax({
-            method: "POST",
-            url: "/note",
-            data: {
-                id:$("#hidden").val(),
-                title:$("#note").val(),
-                body:$("#body").val()
-            }
-        }).then(function(dbArticle) {
-            location.assign("/saved");
-        });
-    });
-
-    $(".notes").on("click", function(){
-        var thisId = $(this).data("id");
-        var noteTitle= $(this).data("title");
-        var noteBody= $(this).data("body");
-        $("#hidden").val(thisId);
-        $("#note").val(noteTitle);
-        $("#body").val(noteBody);
-        //$("form").show();
-        $("#exampleModal").modal("show");
-    });
-
-    $(".delete").on("click",function(){
-        var thisId = $(this).data("id");
-        $.ajax({
-            method: "PUT",
-            url: "/deleted/" + thisId
-        }).then(function(dbArticle){
-            location.assign("/saved");
-        });
-    })
-});
-</script>

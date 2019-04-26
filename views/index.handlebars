@@ -15,29 +15,8 @@
     {{/each}}
   {{/if}}
    {{#unless dbArticle}}
-   If you want to see the article, then press "SCRAPE NEW ARTICLES!" button!!!
+   <h4>If you want to see the article, <br>
+   then press <span style="background-color:yellow">SCRAPE NEW ARTICLES!</span> button!!!<br></h4>
    {{/unless}}
   </div>
 </div>
-<script>
-$(function() {
-    $(".saved").on("click", function(){
-        var thisId = $(this).data("id");
-        var saved = $(this).data("saved");
-        if (saved==="true") {
-            $(this).attr("data-saved","false");
-            saved="false";
-        } else {
-            $(this).attr("data-saved","true");
-            saved="true";
-        }
-        $.ajax({
-            method: "PUT",
-            url: "/saved/" + thisId,
-            data: {saved:saved}
-        }).then(function(dbArticle) {
-            location.assign("/");
-        });
-    });
-});
-</script>
