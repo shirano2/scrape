@@ -23,7 +23,7 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/finalscrapeDB"
 mongoose.connect(MONGODB_URI);
 
 /* controller */
-var controller = require("./controller/Controller.js");
+var controller = require("./controller/controller.js");
 app.use(controller);
 
 /* listener */
