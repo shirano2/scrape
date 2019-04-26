@@ -1,0 +1,19 @@
+#scrape{
+    margin-right:20px;
+}
+#wrapper{
+    width:100%;
+}
+.card {
+    float:left;
+    height:400px;
+    overflow:hidden;
+    margin : 50px;
+}
+.card-text {
+    height:100px;
+    overflow:hidden;
+}
+#saves .card {
+    height:500px;
+}

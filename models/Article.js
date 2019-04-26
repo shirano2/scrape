@@ -15,13 +15,14 @@ var ArticleSchema = new Schema({
     required:true
   },
   url: {
-    type: String
+    type: String,
+    required:true
   },
   saved: {
     type: String,
     default: "false"
   },
-  note: {
+  notes: {
     type: Schema.Types.ObjectId,
     ref: "Note"
   }

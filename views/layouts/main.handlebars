@@ -6,24 +6,28 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 </head>
 <body>
-    <div>
-        <a href="/">home</a>
-        <a href="/saved">saved article</a>
-        <a href="/scrape"><button>SCRAPE NEW ARTICLES!</button></a>
-        <button id="clear">CLEAR ARTICLES</button>
-    </div>
     {{{ body }}}
 </body>
 <script>
 $(function(){
-    $("#clear").on("click", function(){
+    $(document).on("click","#scrape",function(){
+        $.ajax({
+            method: "GET",
+            url: "/scrape"
+        }).then(function(){
+            location.assign("/");
+        })
+    });
+
+    $(document).on("click","#clear",function(){
         $.ajax({
             method: "DELETE",
             url: "/clear"
         }).then(function(dbArticle){
-            location.reload();
+            location.assign("/");
         });
     })
 })

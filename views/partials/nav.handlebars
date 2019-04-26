@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Scrape Site</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        {{#if index}}<li class="nav-item active">{{/if}}{{#unless index}}<li class="nav-item">{{/unless}}
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        {{#if save}}<li class="nav-item active">{{/if}}{{#unless save}}<li class="nav-item">{{/unless}}
+            <a class="nav-link" href="/saved">saved article</a>
+        </li>
+        <li><button id="scrape" class="btn btn-warning">SCRAPE NEW ARTICLES!</button></li>
+        <li><button id="clear" class="btn btn-warning ">CLEAR ARTICLES</button></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    #scrape{
+        margin-right:20px;
+    }
+</style>
+

@@ -1,20 +1,24 @@
+{{>nav save=true}} 
 <div id="wrapper">
-  <div id="articles">
-  {{#if dbArticle}}
-  여기1
-    {{#each dbArticle}}
-    <img src="{{imageUrl}}">
-    <h2>{{headline}}</h2> 
-    <p>{{summary}}</p>
-    <button class="delete" data-id="{{id}}">DELETE FROM SAVED</button>
-    <button class="note" data-id="{{id}}" data-title="{{note.title}}" data-body="{{note.body}}">ARTICLE NOTES</button>
-    {{/each}}
-  {{/if}}
-   {{#unless dbArticle}}
-   저장된 아티클이 없습니다.
-   {{/unless}}
+    <div id="saves">
+    {{#if dbArticle}}
+        {{#each dbArticle}}
+            <div class="card" style="width: 18rem;">
+                <img src="{{imageUrl}}" class="card-img-top" alt="pictures">
+                <div class="card-body">
+                    <h5 class="card-title">{{headline}}</h5>
+                    <p class="card-text">{{summary}}</p>
+                    <button class="delete btn btn-primary" data-id="{{id}}">DELETE FROM SAVED</button>
+                    <button class="notes btn btn-primary" data-id="{{id}}" data-title="{{notes.title}}" data-body="{{notes.body}}">ARTICLE NOTES</button>
+                    <a href="{{url}}" target="_blank"><button class="btn btn-primary">GO TO SITE</button></a>
+                </div>
+            </div>
+        {{/each}}
+    {{/if}}
+    {{#unless dbArticle}}
+        There are no articles saved.
+    {{/unless}}
   </div>
-
    <form method="POST" action="/note" style="display:none">
       <input id="hidden" type="hidden" name="id">
       title:<input type="text" id="note" name="title">
@@ -25,7 +29,7 @@
 
 <script>
 $(function(){
-    $(".note").on("click", function(){
+    $(".notes").on("click", function(){
         var thisId = $(this).data("id");
         var noteTitle= $(this).data("title");
         var noteBody= $(this).data("body");
@@ -44,10 +48,5 @@ $(function(){
             location.assign("/saved");
         });
     })
-})
-    
-
-
-
-
+});
 </script>
