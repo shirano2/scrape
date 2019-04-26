@@ -1,4 +1,5 @@
 $(function(){
+    /* to scrape articles */
     $(document).on("click","#scrape",function(){
         $("h4").text("Please wait to load ....")
         $.ajax({
@@ -9,15 +10,17 @@ $(function(){
         })
     });
 
+    /* to delete whole articles except for saved*/
     $(document).on("click","#clear",function(){
         $.ajax({
             method: "DELETE",
             url: "/clear"
-        }).then(function(dbArticle){
+        }).then(function(){
             location.assign("/");
         });
     });
 
+    /* to save an article */
     $(".saved").on("click", function(){
         var thisId = $(this).data("id");
         var saved = $(this).data("saved");
@@ -32,11 +35,23 @@ $(function(){
             method: "PUT",
             url: "/saved/" + thisId,
             data: {saved:saved}
-        }).then(function(dbArticle) {
+        }).then(function() {
             location.assign("/");
         });
     });
 
+     /* to show a form to make a note */
+     $(".notes").on("click", function(){
+        var thisId = $(this).data("id");
+        var noteTitle= $(this).data("title");
+        var noteBody= $(this).data("body");
+        $("#hidden").val(thisId);
+        $("#note").val(noteTitle);
+        $("#body").val(noteBody);
+        $("#exampleModal").modal("show");
+    });
+
+    /* to save a note */
     $("#submit").on("click", function(){
         $.ajax({
             method: "POST",
@@ -46,28 +61,18 @@ $(function(){
                 title:$("#note").val(),
                 body:$("#body").val()
             }
-        }).then(function(dbArticle) {
+        }).then(function(){
             location.assign("/saved");
         });
     });
 
-    $(".notes").on("click", function(){
-        var thisId = $(this).data("id");
-        var noteTitle= $(this).data("title");
-        var noteBody= $(this).data("body");
-        $("#hidden").val(thisId);
-        $("#note").val(noteTitle);
-        $("#body").val(noteBody);
-        //$("form").show();
-        $("#exampleModal").modal("show");
-    });
-
+    /* to delete an article from saved */
     $(".delete").on("click",function(){
         var thisId = $(this).data("id");
         $.ajax({
             method: "PUT",
             url: "/deleted/" + thisId
-        }).then(function(dbArticle){
+        }).then(function(){
             location.assign("/saved");
         });
     });

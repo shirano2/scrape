@@ -53,3 +53,16 @@ textarea {
 .red {
     color:red;
 }
+
+@media screen and (max-width:980px) {
+    .active {
+        background-color:transparent;
+    }
+
+    .navbar button {
+        background-color:transparent;
+        border : none;
+        color:rgba(204, 14, 14, 0.616);
+        font-weight: bold;
+     }
+}

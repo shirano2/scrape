@@ -18,12 +18,11 @@ app.use(express.json());
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Connect to the Mongo DB
+/* connect to the Mongo DB */
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/finalscrapeDB";
-//scrapeData
-// mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 mongoose.connect(MONGODB_URI);
 
+/* controller */
 var controller = require("./controller/Controller.js");
 app.use(controller);
 

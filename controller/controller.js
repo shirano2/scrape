@@ -1,9 +1,11 @@
+/* setting */
 var express=require("express");
 var db=require("../models");
 var axios=require("axios");
 var cheerio = require("cheerio");
 var router = express.Router();
 
+/* index site */
 router.get("/", function(req, res) {
     db.Article.find({"saved":"false"}).then(function(dbArticle) {
         res.render("index", {dbArticle:dbArticle});
@@ -13,6 +15,7 @@ router.get("/", function(req, res) {
       });
   });
   
+/* when click the button to scrape articles */
 router.get("/scrape", function(req, res) {
     axios.get("https://www.bbc.com/news/").then(function(response) {
       var $ = cheerio.load(response.data);
@@ -41,7 +44,8 @@ router.get("/scrape", function(req, res) {
       res.send("send ok!");
     });
 });
-  
+
+/* when click the button to clear articles except for saved */
 router.delete("/clear", function(req, res) {
     db.Article.deleteMany({"saved":"false"}).then(function(dbArticle) {
       res.json(dbArticle);
@@ -51,6 +55,7 @@ router.delete("/clear", function(req, res) {
     });
 });
   
+/* when click the button to see saved articles */
 router.get("/saved", function(req,res){
     db.Article.find({saved:"true"})
     .populate("notes")
@@ -61,7 +66,8 @@ router.get("/saved", function(req,res){
         res.json(err);
     });
 });
-  
+
+/* when click the button to save an article */  
 router.put("/saved/:id", function(req,res){
     db.Article.findOneAndUpdate({_id:req.params.id}, { saved:req.body.saved }, { new: true })
     .then(function(dbArticle) {
@@ -71,7 +77,8 @@ router.put("/saved/:id", function(req,res){
         res.json(err);
     });
 });
-  
+
+/* when click the button to save a note */   
 router.post("/note",function(req,res){
     var note={
       title:req.body.title,
@@ -88,7 +95,8 @@ router.post("/note",function(req,res){
       });
     });
 });
-  
+
+/* when click the button to remove saved article */ 
 router.put("/deleted/:id", function(req,res){
     db.Article.findOneAndUpdate({_id:req.params.id}, { saved:"false"}, { new: true })
     .then(function(dbArticle) {
@@ -98,6 +106,5 @@ router.put("/deleted/:id", function(req,res){
         res.json(err);
     });
 });
-
 
 module.exports = router;
