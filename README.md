@@ -19,7 +19,7 @@ https://scrape-22948.herokuapp.com/
 * Javascript
 * Node.JS
 * MongoDB
-* axios, cheerio, express, express-handlebars mongoose
+* axios, cheerio, express, express-handlebars, mongoose
 
 
 ### Home Page 
