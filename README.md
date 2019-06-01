@@ -15,10 +15,10 @@ https://scrape-22948.herokuapp.com/
 
 * HTML5
 * CSS3
-* jQuery
+* JQuery
 * Javascript
-* Node.JS
 * MongoDB
+& Node.js
 * axios, cheerio, express, express-handlebars, mongoose
 
 
