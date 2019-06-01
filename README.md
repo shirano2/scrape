@@ -26,7 +26,7 @@ https://scrape-22948.herokuapp.com/
 
 When a user comes to website, if you click "SCRAPE NEW ARTICLES" button, then site shows you the recent hot news from CNN site.
 If CNN site updates its news, you can add recent articles more after you clicked "SCRAPE NEW ARTICLES" button again.
-Also you can delete all news of current page by clicking "CLEAR ARTICLES".
+Also you can clear all news of current page by clicking "CLEAR ARTICLES".
 If you like some articles, then you can save them. Saved articles can be found out in Saved Page.
 Or if you want to go to the CNN site directly, just click "GO TO SITE" button.
 
