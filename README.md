@@ -6,8 +6,6 @@ If you click "SCRAPE NEW ARTICLES!" button, then you can get many recent article
 
 If you like some articles, then you can save them, and add your notes to your saved articles.
 
-If you want to get recent articles, then click the "CLEAR ARTICLES" button and click the "SCRAPE NEW ARTICLES!" button again.
-
 
 ## Site
 https://scrape-22948.herokuapp.com/
