@@ -18,8 +18,7 @@ https://scrape-22948.herokuapp.com/
 * JQuery
 * Javascript
 * MongoDB
-* Node.js
-* axios, cheerio, express, express-handlebars, mongoose
+* Node.js (Axios, Cheerio, Express, Express-handlebars, Mongoose)
 
 
 ### Home Page 
