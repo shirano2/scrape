@@ -106,7 +106,7 @@ router.put("/saved/:id", function(req,res){
 
 ### Saved Page
 
-User can find saved books from DB here. And also you can add your own note to books. Also user can delete saved books from DB
+User can find saved articles from DB here. And also you can add your own note to articles. Also user can delete saved articles from DB
 
 #### Show saved articles
 
